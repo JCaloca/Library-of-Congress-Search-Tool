@@ -2,16 +2,12 @@ function clickMeButtonOnClick(event) {
     document.location.replace("./search-results.html");
 }
 
-function searchButtonOnClick(event) {
-
-}
-
 function fetchData(searchQuery, searchFormat) {
     var url = "https://www.loc.gov/"+searchFormat+"/?q="+searchQuery+"&fo=json";
-    var formattedUrl = url.replace(" ", "%20");
-    console.log(formattedUrl);
+    //var formattedUrl = url.replace(" ", "%20");
+    console.log(url);
 
-    fetch(formattedUrl)
+    fetch(url)
     .then(function (response) {
       console.log("response", response);
       
@@ -21,5 +17,3 @@ function fetchData(searchQuery, searchFormat) {
       console.log("data",data);
     });
 }
-
-fetchData("Barack Obama", "newspapers");
