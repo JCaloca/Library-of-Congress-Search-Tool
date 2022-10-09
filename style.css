@@ -9,11 +9,9 @@ body {
 
 #front-page {
     height: 70vh;
-    width: 100%;
-
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
 }
 
 .card {
@@ -23,6 +21,9 @@ body {
 
 #search-column {
     background-color: var(--light);
+
+    /* Prevents the light color on the left column from looking funky while the results load. */
+    min-height: 100vh;
 }
 
 h1 {
