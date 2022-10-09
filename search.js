@@ -1,5 +1,5 @@
 var searchResultsElement = $("#search-results");
-
+var submitBtn = $(".btn-primary");
 /*
  *  Generates the search results that you see on the page when given a data blob representing the search results.
  */
@@ -32,16 +32,16 @@ function displaySearchResults(data) {
         var date = resultList[i].date;
         var dateToAdd = $("<p>");
         dateToAdd.addClass("card-subtitle text-muted");
-        dateToAdd.text("Date: "+date);
+        dateToAdd.text("Date: " + date);
         cardBody.append(dateToAdd);
 
         /* Sometimes the result comes without a description. In that case, we'll set the subjects to none. */
         var subjects = resultList[i].subject;
         var subjectText = "Subjects: ";
         if (subjects) {
-            subjectText = subjectText+subjects.join(", ");
+            subjectText = subjectText + subjects.join(", ");
         } else {
-            subjectText = subjectText+"none";
+            subjectText = subjectText + "none";
         }
         var subjectsToAdd = $("<p>");
         subjectsToAdd.addClass("card-text");
@@ -57,7 +57,7 @@ function displaySearchResults(data) {
             description = description + "No description for this entry";
         }
         console.log(description);
-        
+
         var descriptionToAdd = $("<p>");
         descriptionToAdd.addClass("card-text");
         descriptionToAdd.text(description);
@@ -70,7 +70,7 @@ function displaySearchResults(data) {
         var resultURL = resultList[i].url;
         if (resultURL.substring(0, 2) == "//") {
             //console.log(resultURL);
-            resultURL = "https:"+resultURL;
+            resultURL = "https:" + resultURL;
         }
         //console.log(resultURL);
 
@@ -92,19 +92,28 @@ function goBackButtonOnClick(event) {
 }
 
 function fetchData(searchQuery, searchFormat) {
-    var url = "https://www.loc.gov/"+searchFormat+"/?q="+searchQuery+"&fo=json";
+    var url = "https://www.loc.gov/" + searchFormat + "/?q=" + searchQuery + "&fo=json";
     console.log(url);
 
     fetch(url)
-    .then(function (response) {
-      console.log("response", response);
-      
-      return response.json();
-    })
-    .then(function (data) {
-      console.log("data",data);
-      displaySearchResults(data);
-    });
+        .then(function (response) {
+            console.log("response", response);
+
+            return response.json();
+        })
+        .then(function (data) {
+            console.log("data", data);
+            displaySearchResults(data);
+        });
 }
 
-fetchData("Chicago", "manuscripts");
+// fetchData("Chicago", "manuscripts");
+//linking fetchData to button
+$(function startSearch() {
+    $(submitBtn).on("click", function (event) {
+        event.preventDefault();
+        var searchQuery = $("#exampleFormControlInput1").val();
+        var searchFormat = $("#exampleFormControlSelect1").val();
+        fetchData(searchQuery, searchFormat);
+    })
+});
