@@ -9,7 +9,7 @@ $(function clickMeButton() {
     //localStorage.setItem("searchQuery", searchQuery);
     //localStorage.setItem("searchFormat", searchFormat);
     // console.log(document.location);
-    document.location.replace("./search.html?q="+searchQuery+"&format=");
+    document.location.replace("./search.html?q="+searchQuery+"&format="+searchFormat);
   })
 });
 

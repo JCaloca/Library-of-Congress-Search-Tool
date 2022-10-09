@@ -1,0 +1,42 @@
+:root {
+    --dark: darkslategrey;
+    --light: gainsboro;
+}
+
+body {
+    background-color: var(--dark);
+}
+
+#front-page {
+    height: 70vh;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    background-color: var(--light);
+    color: var(--dark);
+}
+
+#search-column {
+    background-color: var(--light);
+}
+
+h1 {
+    font-weight: bold;
+
+    color: var(--dark);
+}
+
+h2 {
+    font-weight: bold;
+
+    color: var(--light);
+}
+
+h3 {
+    font-weight: bold;
+}

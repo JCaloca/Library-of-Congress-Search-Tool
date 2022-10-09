@@ -1,5 +1,7 @@
 var searchResultsElement = $("#search-results");
 var submitBtn = $(".btn-primary");
+var goBackBtn = $(".btn-danger");
+var textInputElement = $("#exampleFormControlInput1");
 
 /*
  *  Generates the search results that you see on the page when given a data blob representing the search results.
@@ -10,6 +12,7 @@ function displaySearchResults(data) {
     /* First, we want to create the header that displays "Showing results for " */
     var searchQuery = data.search.query;
     var headerToAdd = $("<h2>");
+    headerToAdd.addClass("my-3");
     headerToAdd.attr("id", "search-results-header");
     headerToAdd.text("Showing results for " + searchQuery + ":");
     searchResultsElement.append(headerToAdd);
@@ -77,7 +80,7 @@ function displaySearchResults(data) {
 
         /* Now we create and add the button that links to whatever the result is.  */
         var linkToAdd = $("<a>");
-        linkToAdd.addClass("btn btn-primary mt-3");
+        linkToAdd.addClass("btn btn-dark mt-3");
         linkToAdd.attr("role", "button");
         linkToAdd.attr("href", resultURL);
         linkToAdd.attr("target", "_blank");
@@ -88,7 +91,9 @@ function displaySearchResults(data) {
     }
 }
 
+/* Logic for the go back button on click. */
 function goBackButtonOnClick(event) {
+    event.preventDefault();
     document.location.replace("./index.html");
 }
 
@@ -119,15 +124,22 @@ $(function startSearch() {
     })
 });
 
-//when redirected from another page, get item from search params in the url and execute search
+//when redirected from another page, get search params from the url and execute search
+//also set the text input element to the value of the search query
 $(function () {
     var queryString = location.search;
     var urlParams = new URLSearchParams(queryString);
     var searchFor = urlParams.get("q");
     var format = urlParams.get("format");
+
+    textInputElement.val(searchFor);
+    var selectFormatElement = document.getElementById("exampleFormControlSelect1");
+    selectFormatElement.value = format;
     
     fetchData(searchFor, format);
 });
+
+goBackBtn.on("click", goBackButtonOnClick);
 
 /* 
  *  I stole the idea for using a URLSearchParams Object from the following source on google:
