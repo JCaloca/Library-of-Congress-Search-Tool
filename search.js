@@ -4,6 +4,8 @@ var submitBtn = $(".btn-primary");
  *  Generates the search results that you see on the page when given a data blob representing the search results.
  */
 function displaySearchResults(data) {
+    //*clearing the search results to show new results when multiple searches
+    searchResultsElement.empty();
     /* First, we want to create the header that displays "Showing results for " */
     var searchQuery = data.search.query;
     console.log(searchQuery);
@@ -116,4 +118,13 @@ $(function startSearch() {
         var searchFormat = $("#exampleFormControlSelect1").val();
         fetchData(searchQuery, searchFormat);
     })
+});
+
+//when redirected from another page, get item from local storage and execute search
+$(function () {
+    var searchQuery = (localStorage.getItem("searchQuery"));
+    var searchFormat = (localStorage.getItem("searchFormat"));
+    console.log("topic: " + searchQuery);
+    console.log("type: " + searchFormat);
+    fetchData(searchQuery, searchFormat);
 });
