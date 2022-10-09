@@ -16,39 +16,34 @@
 </head>
 
 <body>
-  <header>
-    <div class="jumbotron">
-      <h1>Bootstrap Tutorial</h1>
-      <p>Bootstrap is the most popular HTML, CSS...</p>
-    </div>
-  </header>
-
-
+  <main class="container" id="front-page">
+    <div class="row">
   <!--Container for homepage form-->
-  <container>
-    <form class="col-8 text-center mx-auto ">
-      <div class="form-group">
-        <label for="exampleFormControlInput1">Search</label>
-        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Search item here" />
+      <div class="card col-12" id="main-card">
+        <div class="card-body">
+          <h1 class="card-title mb-4 text-center">Library of Congress Search Engine</h1>
+          <form class="text-center mx-auto ">
+            <div class="form-group">
+              <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Search!" />
+            </div>
+            <div class="form-group">
+              <select class="form-control" id="exampleFormControlSelect1">
+                <option>maps</option>
+                <option>audio</option>
+                <option>photos</option>
+                <option>manuscripts</option>
+                <option>film-and-videos</option>
+                <option>notated-music</option>
+                <option>websites</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Search</button>
+          </form>
+        </div>
+
       </div>
-      <div class="form-group">
-        <label for="exampleFormControlSelect1">Example select</label>
-        <select class="form-control" id="exampleFormControlSelect1">
-          <option>maps</option>
-          <option>audio</option>
-          <option>photos</option>
-          <option>manuscripts</option>
-          <option>film-and-videos</option>
-          <option>notated-music</option>
-          <option>websites</option>
-        </select>
-      </div>
-      <button type="submit" class="btn btn-primary">Search</button>
-    </form>
-
-  </container>
-
-
+    </div>
+  </main>
 
 
 
