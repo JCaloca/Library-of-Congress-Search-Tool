@@ -1,5 +1,5 @@
 var searchResultsElement = $("#search-results");
-var submitBtn = $(".btn-primary");
+var submitBtn = $("#submit-btn");
 var goBackBtn = $(".btn-danger");
 var textInputElement = $("#exampleFormControlInput1");
 
@@ -91,24 +91,47 @@ function displaySearchResults(data) {
     }
 }
 
-/* Logic for the go back button on click. */
+/* Logic for the go back button on click. On the Go Back Button, we just want to change the URL. */
 function goBackButtonOnClick(event) {
     event.preventDefault();
     document.location.replace("./index.html");
 }
 
+/*
+ *  Fetches the search results from the Library of Congress. If the format string is empty, we need to
+ *  send the url in form of https://www.loc.gov/search/?q={searchQuery}&fo=json, otherwise the API call is
+ *  of the form https://www.loc.gov/{searchFormat}/?q={searcQuery}&fo=json.
+ *  
+ *  In order to fetch the data we must:
+ *      1. Determine if the format is an empty string.
+ *          a. If it is, the URL is of the form https://www.loc.gov/search/?q={searchQuery}&fo=json
+ *          b. If not, the URL is of the form https://www.loc.gov/{searchFormat}/?q={searcQuery}&fo=json
+ *      2. Fetch the data.
+ *      3. When we get the data back, pass the data blob to displaySearchResults to display the results.
+ */
 function fetchData(searchQuery, searchFormat) {
-    var url = "https://www.loc.gov/" + searchFormat + "/?q=" + searchQuery + "&fo=json";
-    //console.log(url);
+    var url;
 
+    /* 1. Determine if the format is an empty string. */
+    if (searchFormat === "") {
+        /* 2. a. If it is, the URL is of the form https://www.loc.gov/search/?q={searchQuery}&fo=json */
+        url = "https://www.loc.gov/search/?q="+searchQuery+"&fo=json"
+    } else {
+        /* 2. b. If not, the URL is of the form https://www.loc.gov/{searchFormat}/?q={searcQuery}&fo=json */
+        var url = "https://www.loc.gov/" + searchFormat + "/?q=" + searchQuery + "&fo=json";
+    }
+
+    /* 2. Fetch the data. */
     fetch(url)
         .then(function (response) {
-            console.log("response", response);
+            //console.log("response", response);
 
             return response.json();
         })
         .then(function (data) {
-            console.log("data", data);
+            //console.log("data", data);
+
+            /* 3. When we get the data back, pass the data blob to displaySearchResults to display the results. */
             displaySearchResults(data);
         });
 }
