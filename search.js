@@ -1,5 +1,6 @@
 var searchResultsElement = $("#search-results");
 var submitBtn = $(".btn-primary");
+
 /*
  *  Generates the search results that you see on the page when given a data blob representing the search results.
  */
@@ -8,7 +9,6 @@ function displaySearchResults(data) {
     searchResultsElement.empty();
     /* First, we want to create the header that displays "Showing results for " */
     var searchQuery = data.search.query;
-    console.log(searchQuery);
     var headerToAdd = $("<h2>");
     headerToAdd.attr("id", "search-results-header");
     headerToAdd.text("Showing results for " + searchQuery + ":");
@@ -58,7 +58,6 @@ function displaySearchResults(data) {
         } else {
             description = description + "No description for this entry";
         }
-        console.log(description);
 
         var descriptionToAdd = $("<p>");
         descriptionToAdd.addClass("card-text");
@@ -95,7 +94,7 @@ function goBackButtonOnClick(event) {
 
 function fetchData(searchQuery, searchFormat) {
     var url = "https://www.loc.gov/" + searchFormat + "/?q=" + searchQuery + "&fo=json";
-    console.log(url);
+    //console.log(url);
 
     fetch(url)
         .then(function (response) {
@@ -120,11 +119,30 @@ $(function startSearch() {
     })
 });
 
-//when redirected from another page, get item from local storage and execute search
+//when redirected from another page, get item from search params in the url and execute search
 $(function () {
-    var searchQuery = (localStorage.getItem("searchQuery"));
-    var searchFormat = (localStorage.getItem("searchFormat"));
-    console.log("topic: " + searchQuery);
-    console.log("type: " + searchFormat);
-    fetchData(searchQuery, searchFormat);
+    var queryString = location.search;
+    var urlParams = new URLSearchParams(queryString);
+    var searchFor = urlParams.get("q");
+    var format = urlParams.get("format");
+    
+    fetchData(searchFor, format);
 });
+
+/* 
+ *  I stole the idea for using a URLSearchParams Object from the following source on google:
+ *  https://www.sitepoint.com/get-url-parameters-with-javascript/
+ * 
+ *  When the search results page is loaded, we need to do the following:
+ *      1. We need to parse out the parameters, namely the search query and format we specified.
+ *      2. We need to call fetch to get the results with the parameters we parsed.
+ *
+ 1. We need to parse out the parameters, namely the search query and format we specified.
+var queryString = location.search;
+var urlParams = new URLSearchParams(queryString);
+var searchFor = urlParams.get("q");
+var format = urlParams.get("format");
+
+ 2. We need to call fetch to get the results with the parameters we parsed.
+fetchData(searchFor, format);
+*/
