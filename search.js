@@ -1,5 +1,5 @@
 var searchResultsElement = $("#search-results");
-var submitBtn = $("#submit-btn");
+var submitBtn = $("#search-btn");
 var goBackBtn = $(".btn-danger");
 var textInputElement = $("#exampleFormControlInput1");
 
